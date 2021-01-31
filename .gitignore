@@ -351,3 +351,15 @@ MigrationBackup/
 
 #VS Code
 .vscode/
+
+# JetBrains Rider
+.idea/
+*.sln.iml
+
+# Mac OS chaff
+.DS_Store
+
+# Sqlite databases
+*.db
+
+.idea/
