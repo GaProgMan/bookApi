@@ -7,14 +7,18 @@ assignees: ''
 
 ---
 
-**Is your feature request related to a problem? Please describe.**
-A clear and concise description of what the problem is. Ex. I'm always frustrated when [...]
+## Description
 
-**Describe the solution you'd like**
-A clear and concise description of what you want to happen.
+A description of the feature.
 
-**Describe alternatives you've considered**
-A clear and concise description of any alternative solutions or features you've considered.
+## High-Level Proposed Solution
 
-**Additional context**
-Add any other context or screenshots about the feature request here.
+A series of bullet points describing the high-level proposed solution. This does not strictly have to be followed, but can be used as a starting point for the design of the solution.
+
+## Considerations
+
+Any considerations that potential implementers should have in mind when designing a proposed solution.
+
+## Requirements
+
+A series of bullet points which list the minimal requirements for this feature to have been implemented.
