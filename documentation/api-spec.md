@@ -100,7 +100,7 @@ Paged data is passed as part of a query string and contains the following fields
   - Which column (if any) to sort the returned data by
 - `sortDirection` [Optional]
   - Which direction (ASC or DESC) to sort by
-  - If not present DESC is asumed
+  - If not present DESC is assumed
 - `searchQuery` [Optional]
   - An arbitrary string to all data fields by
 
