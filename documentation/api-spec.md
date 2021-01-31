@@ -1,4 +1,4 @@
-# Specification
+# API Specification
 
 We have been tasked with creating an API whereby users can search for and retrieve information on books for a search engine applications. Users are not required to authenticate with any identity provider.
 
