@@ -28,7 +28,7 @@ namespace bookApi.Controllers
             {
                 return new NotFoundResult();
             }
-            return new OkObjectResult(_bookGetter.GetBook());
+            return new OkObjectResult(book);
         }
     }
 }
