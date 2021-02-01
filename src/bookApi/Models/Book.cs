@@ -1,7 +1,11 @@
+using System;
+
 namespace bookApi.Models
 {
     public class Book
     {
+        public Guid Id { get; set; }
+        
         /// <summary>
         /// Represents the title of the book
         /// </summary>

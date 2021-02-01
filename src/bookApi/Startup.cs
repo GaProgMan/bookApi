@@ -31,7 +31,7 @@ namespace bookApi
 
             services.AddControllers();
 
-            services.AddTransient<IGetBook, FlatFileBookService>();
+            services.AddTransient<IGetBook, HardCodedBookService>();
 
             services.AddSwaggerGen(c =>
             {
