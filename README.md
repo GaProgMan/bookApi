@@ -2,6 +2,10 @@
 
 An API and UI for a fake book search engine
 
+## Build Status
+
+![.NET](https://github.com/GaProgMan/bookApi/workflows/.NET/badge.svg)
+
 ## Code of Conduct
 
 Please ensure that you are familiar with the [code of conduct](./code-of-conduct.md) and the [contributions guide](./.github/contributing.md) before submitting any contributions or making any comments.
