@@ -7,10 +7,10 @@ namespace bookApi.Services
 {
     public class HardCodedBookService : IGetBook
     {
-        private readonly List<Book> fakeDatabase;
+        private readonly List<Book> _fakeDatabase;
         public HardCodedBookService()
         {
-            fakeDatabase = new List<Book>
+            _fakeDatabase = new List<Book>
             {
                 new Book
                 {
@@ -28,7 +28,7 @@ namespace bookApi.Services
         }
         public Book GetBook(Guid targetBookId)
         {
-            return fakeDatabase.FirstOrDefault(book => book.Id == targetBookId);
+            return _fakeDatabase.FirstOrDefault(book => book.Id == targetBookId);
         }
     }
 }
