@@ -2,6 +2,10 @@
 
 An API and UI for a fake book search engine
 
+## Code of Conduct
+
+Please ensure that you are familiar with the [code of conduct](./code-of-conduct.md) and the [contributions guide](./.github/contributing.md) before submitting any contributions or making any comments.
+
 ## API Roadmap
 
 The following points are based on the [API Specification](./documentation/api-spec.md)

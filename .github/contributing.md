@@ -1,4 +1,5 @@
-The contents of this file are based on the CONTRIBUTING.md file found in the [CleanArchitecture](https://github.com/ardalis/CleanArchitecture) repo by Steve "Ardalis" Smith.
+The contents of this file are based on the CONTRIBUTING.md file found in the [CleanArchitecture](https://github.com/ardalis/CleanArchitecture)
+repo by Steve "Ardalis" Smith.
 
 # Contributing to BookApi
 
@@ -12,6 +13,11 @@ However, for those individuals who want a bit more guidance on the best way to
 contribute to the project, read on. This document will cover what we're looking
 for. By addressing all the points we're looking for, it raises the chances we
 can quickly merge or address your contributions.
+
+Please be aware that we have a [code of conduct](../code-of-conduct.md), and
+that we expect all contributors to adhere to it. This includes any comments,
+issues, pull requests or messages relating to this repository, including any
+live streams and YouTube videos.
 
 ## Issues
 
