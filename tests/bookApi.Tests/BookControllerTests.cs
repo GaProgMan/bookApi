@@ -1,4 +1,7 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
 using bookApi.Controllers;
 using bookApi.Models;
 using bookApi.Services;
@@ -79,6 +82,118 @@ namespace bookApi.Tests
             Assert.NotNull(asBook);
             Assert.Equal(targetAuthor, asBook.Author);
             Assert.Equal(targetBookId, asBook.Id);
+        }
+
+        [Fact]
+        public void GetPaged_ReturnsNotFound_When_RequestedPageCannotBeFound()
+        {
+            // Arrange
+            var mockedIGetBook = new Mock<IGetBook>();
+            mockedIGetBook.Setup(x => x.GetPageOfBooks(It.IsAny<PagedRequest>()))
+                .Returns(new PagedResponse
+                {
+                    PageNumber = default,
+                    PerPage = default,
+                    Records = new List<Book>()
+                });
+
+            var controller = new BookController(mockedIGetBook.Object);
+
+            // Act
+            var response = controller.Get(new PagedRequest
+                {
+                    PageNumber = 1,
+                    PerPage = 5
+                }
+            );
+
+            // Assert
+            Assert.NotNull(response);
+
+            var asNotFound = response as NotFoundResult;
+            Assert.NotNull(asNotFound);
+            Assert.Equal((int)HttpStatusCode.NotFound, asNotFound.StatusCode);
+        }
+        
+        [Fact]
+        public void GetPaged_ReturnsBadRequest_When_Request_Is_Invalid()
+        {
+            // Arrange
+            var mockedIGetBook = new Mock<IGetBook>();
+            mockedIGetBook.Setup(x => x.GetPageOfBooks(It.IsAny<PagedRequest>()))
+                .Returns(new PagedResponse
+                {
+                    PageNumber = default,
+                    PerPage = default,
+                    Records = new List<Book>()
+                });
+
+            var controller = new BookController(mockedIGetBook.Object);
+
+            // Act
+            var response = controller.Get(new PagedRequest
+            {
+                PageNumber = 1,
+                PerPage = -1
+            });
+
+            // Assert
+            Assert.NotNull(response);
+
+            var badRequestResult = response as BadRequestResult;
+            Assert.NotNull(badRequestResult);
+            Assert.Equal((int)HttpStatusCode.BadRequest, badRequestResult.StatusCode);
+        }
+        
+        [Fact]
+        public void GetPaged_ReturnsOkObjectResult_When_RequestedPageIsFound()
+        {
+            // Arrange
+            var pagedRequest = new PagedRequest
+            {
+                PageNumber = 1,
+                PerPage = 5
+            };
+            var targetBook = new Book
+            {
+                Author = "Jamie Taylor",
+                Name = "Programming in .NET",
+                Id = Guid.Parse("7DC01C54-9E94-4EFC-8AD4-E2E6B46BA9EC")
+            };
+            
+            var mockedIGetBook = new Mock<IGetBook>();
+            mockedIGetBook.Setup(x => x.GetPageOfBooks(pagedRequest))
+                .Returns(new PagedResponse
+                {
+                    PageNumber = pagedRequest.PageNumber,
+                    PerPage = pagedRequest.PerPage,
+                    Records = new List<Book>
+                    {
+                        targetBook
+                    }
+                });
+
+            var controller = new BookController(mockedIGetBook.Object);
+
+            // Act
+            var response = controller.Get(pagedRequest);
+
+            // Assert
+            Assert.NotNull(response);
+
+            var okObjectResult = response as OkObjectResult;
+            Assert.NotNull(okObjectResult);
+            Assert.Equal((int)HttpStatusCode.OK, okObjectResult.StatusCode);
+
+            var pagedResponse = okObjectResult.Value as PagedResponse;
+            Assert.NotNull(pagedResponse);
+            Assert.NotEmpty(pagedResponse.Records);
+
+            var firstBook = pagedResponse.Records.FirstOrDefault();
+            Assert.NotNull(firstBook);
+            Assert.Equal(targetBook.Name, firstBook.Name);
+            Assert.Equal(targetBook.Author, firstBook.Author);
+            Assert.Equal(targetBook.Id, firstBook.Id);
         }
     }
 }
