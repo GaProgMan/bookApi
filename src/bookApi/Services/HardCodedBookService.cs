@@ -54,5 +54,10 @@ namespace bookApi.Services
         {
             return _fakeDatabase.FirstOrDefault(book => book.Id == targetBookId);
         }
+
+        public PagedResponse GetPageOfBooks(PagedRequest requestData)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Net;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
@@ -45,7 +46,19 @@ namespace bookApi.Controllers
         [SwaggerResponse((int)HttpStatusCode.BadRequest, "The request data was badly formed")]
         public ActionResult Get([FromQuery]PagedRequest requestData)
         {
-            return Ok();
+            if (requestData.PageNumber <= 0 || requestData.PerPage <= 0)
+            {
+                return new BadRequestResult();
+            }
+
+            var pagedDataResponse = _bookGetter.GetPageOfBooks(requestData);
+
+            if (!pagedDataResponse.Records.Any())
+            {
+                return new NotFoundResult();
+            }
+
+            return new OkObjectResult(pagedDataResponse);
         }
     }
 }
