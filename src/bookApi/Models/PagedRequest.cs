@@ -1,3 +1,5 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace bookApi.Models
 {
     public class PagedRequest
@@ -5,11 +7,13 @@ namespace bookApi.Models
         /// <summary>
         /// The page number that the user is requesting
         /// </summary>
+        [Required(ErrorMessage = "Page number MUST be required")]
         public int PageNumber { get; set; }
         
         /// <summary>
         /// The number of records to return in a single page
         /// </summary>
+        [Required(ErrorMessage = "Per page value MUST be required")]
         public int PerPage { get; set; }
         
         /// <summary>
@@ -26,16 +30,19 @@ namespace bookApi.Models
         /// <remarks>
         /// Not required, defaults to Desc if not supplied
         /// </remarks>
-        public bool SortDirection { get; set; }
+        public bool SortAscending { get; set; }
         
         /// <summary>
         /// An arbitrary string to search on across fields
         /// </summary>
         public string SearchQuery { get; set; }
-        
+
         /// <summary>
         /// The number of records to skip when processing this request
         /// </summary>
-        public int NumberOfRecordsToSkip => (PageNumber - 1) * PerPage;
+        public int NumberOfRecordsToSkip()
+        {
+            return (PageNumber - 1) * PerPage;
+        }
     }
 }
