@@ -195,43 +195,5 @@ namespace bookApi.Tests
             Assert.Equal(targetBook.Author, firstBook.Author);
             Assert.Equal(targetBook.Id, firstBook.Id);
         }
-        
-        [Fact]
-        public void GetPaged_Calls_Service_Returns_PagedResonse()
-        {
-            // Arrange
-            var pagedRequest = new PagedRequest
-            {
-                PageNumber = 1,
-                PerPage = 5
-            };
-
-            var hardcodedGetBookService = new HardCodedBookService();
-
-            var controller = new BookController(hardcodedGetBookService);
-
-            // Act
-            var response = controller.Get(pagedRequest);
-
-            // Assert
-            Assert.NotNull(response);
-
-            var okObjectResult = response as OkObjectResult;
-            Assert.NotNull(okObjectResult);
-            Assert.Equal((int)HttpStatusCode.OK, okObjectResult.StatusCode);
-
-            var pagedResponse = okObjectResult.Value as PagedResponse;
-            Assert.NotNull(pagedResponse);
-            Assert.NotEmpty(pagedResponse.Records);
-            Assert.Equal(pagedRequest.PageNumber, pagedResponse.PageNumber);
-            Assert.Equal(pagedRequest.PerPage, pagedResponse.PerPage);
-            Assert.True(pagedResponse.TotalNumberOfMatchingRecords > 0);
-
-            var firstBook = pagedResponse.Records.FirstOrDefault();
-            Assert.NotNull(firstBook);
-            Assert.False(string.IsNullOrWhiteSpace(firstBook.Name));
-            Assert.False(string.IsNullOrWhiteSpace(firstBook.Author));
-            Assert.NotEqual(Guid.Empty, firstBook.Id);
-        }
     }
 }

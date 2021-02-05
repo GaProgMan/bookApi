@@ -1,3 +1,4 @@
+using bookApi.DataStores;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -24,7 +25,8 @@ namespace bookApi
 
             services.AddControllers();
 
-            services.AddTransient<IGetBook, HardCodedBookService>();
+            services.AddTransient<IDataStore, HardcodedDataStore>();
+            services.AddTransient<IGetBook, BookService>();
 
             services.AddSwaggerGen(c =>
             {
