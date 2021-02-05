@@ -8,6 +8,7 @@ namespace bookApi.Services
     public class HardCodedBookService : IGetBook
     {
         private readonly List<Book> _fakeDatabase;
+        
         public HardCodedBookService()
         {
             _fakeDatabase = new List<Book>
@@ -50,6 +51,7 @@ namespace bookApi.Services
                 }
             };
         }
+        
         public Book GetBook(Guid targetBookId)
         {
             return _fakeDatabase.FirstOrDefault(book => book.Id == targetBookId);
@@ -57,7 +59,22 @@ namespace bookApi.Services
 
         public PagedResponse GetPageOfBooks(PagedRequest requestData)
         {
-            throw new NotImplementedException();
+            var query = _fakeDatabase
+                .AsQueryable();
+            
+            // TODO Add filtering using SearchQuery, SortColumn, and SortDirection on query
+            
+            var recordsAsPage = query
+                .Skip(requestData.NumberOfRecordsToSkip)
+                .Take(requestData.PerPage);
+            
+            return new PagedResponse
+            {
+                PageNumber = requestData.PageNumber,
+                PerPage = requestData.PerPage,
+                TotalNumberOfMatchingRecords = query.Count(),
+                Records = recordsAsPage.ToList()
+            };
         }
     }
 }
